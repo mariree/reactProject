@@ -1,3 +1,8 @@
+## 项目说明
+基于antd组件库的后台管理系统。项目包含很多antd常见组件的用法，包含react常用路由、传参等react基础知识，适合react新手学习。
+
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
