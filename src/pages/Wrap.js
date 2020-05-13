@@ -7,6 +7,8 @@ import Material from '../componets/Material'
 import Area from './Area'
 import Task from './Task'
 import TaskDetail from './TaskDetail'
+import Map from './Map'
+import Complex from './Complex'
 
 class Wrap extends React.Component {
     constructor(props){
@@ -27,6 +29,8 @@ class Wrap extends React.Component {
                                     <Route path='/Area' component = {Area} exact />
                                     <Route path='/Task' component = {Task} exact />
                                     <Route path='/TaskDetail' component = {TaskDetail} exact />
+                                    <Route path='/Map' component = {Map} exact />
+                                    <Route path='/Complex' component = {Complex} exact />
                                 </Switch>
                         </div>
                     </div>

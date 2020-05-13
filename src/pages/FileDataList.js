@@ -1,14 +1,38 @@
 import React, { Fragment } from 'react'
 import {FileTextTwoTone} from '@ant-design/icons'
-import { Input, Row, Col , Popover, Button, Radio,Table  } from 'antd';
+import { Button, Table, message  } from 'antd';
+import axios from 'axios';
 
 class FileDataList extends React.Component {
     constructor(props) {
         super(props)
+        this.state = {
+            fileData: []
+        }
+        this.deleteMat = this.deleteMat.bind(this)
     }
-
+    componentWillReceiveProps (nextProps) {
+        const {fileData} = nextProps
+        this.setState({
+            fileData
+        })
+    }
+    deleteMat(info) {
+        console.log(info)
+        let _this = this
+        axios.post('http://localhost:3000/deleteData', info).then(function (res) {
+            if(res.data.dataStatus === '000000'){
+                message.success('删除成功')
+                _this.props.initTableData()
+            }
+        }).catch(function (error) {
+            console.log(error);
+        })
+    }
     render () {
-        let { fileData, viewType, chooseFile , chosedFile} = this.props
+        let { viewType, chooseFile , chosedFile} = this.props
+        let { fileData } = this.state
+        let _this = this
         const judgeOpe = (status)=> {
             // 0待审 1驳回 2待入库 3合格
             switch (status) {
@@ -43,51 +67,73 @@ class FileDataList extends React.Component {
         const columns = [{
             title: 'ID',
             dataIndex: 'id',
+            dataIndex:"id",
+            align: 'center',
             key: 'id'
         }, {
             title: '名称',
             dataIndex: 'name',
+            align: 'center',
+            dataIndex:"name",
             key: 'name'
+
         }, {
             title: '类型',
             dataIndex: 'type',
+            align: 'center',
+            dataIndex:"type",
             key: 'type'
         }, {
             title: '大小',
             dataIndex: 'size',
+            align: 'center',
+            dataIndex:"size",
             key: 'size'
         }, {
             title: '上传日期',
             dataIndex: 'upTime',
+            align: 'center',
+            dataIndex:"upTime",
             key: 'upTime'
         }, {
             title: '分辨率',
             dataIndex: 'sharpness',
+            align: 'center',
+            dataIndex:"sharpness",
             key: 'sharpness'
         }, {
             title: '节目时长',
             dataIndex: 'duration',
+            align: 'center',
+            dataIndex:"duration",
             key: 'duration'
         }, {
             title: '上传人',
             dataIndex: 'author',
+            align: 'center',
+            dataIndex:"author",
             key: 'author'
         }, {
             title: '状态',
             dataIndex: 'status',
+            align: 'center',
+            dataIndex:"status",
             key: 'status',
             render: e=> {
                 return judgeOpe(e).status
             }
         }, {
             title: '操作选项',
+            align: 'center',
+            dataIndex:"operation",
             key: 'operation',
+            width: 180,
             render: (text, record)=> {
                 return (
                     <div className='f-l-col-ope'>
-                        <span>预览</span>
-                        <span>审核</span>
-                        <span>审核记录</span>
+                        <span className="_opeBtn" onClick={_this.deleteMat.bind(_this,record)}>删除</span>
+                        <span className="_opeBtn">审核</span>
+                        <span className="_opeBtn">审核记录</span>
                     </div>
                 )
             }

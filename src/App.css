@@ -52,7 +52,8 @@ body .ant-popover-inner-content {
 /* side */
 .sideWrap {
     height: calc(100vh - 60px);
-    width: 256px;
+    /* width: 256px; */
+    width: 13.3333vw;
     border-right:1px solid rgb(240, 240, 240);
 }
 /* title */
@@ -77,6 +78,10 @@ body .ant-popover-inner-content {
 .m-search-wrap .ant-input-search {
     width: auto;
     margin: 10px;
+    height: 32px;
+    width: 80%;
+    line-height: 30px;
+    padding: 0 10px;
 }
 .m-search-wrap>h5 {
     padding-left: 10px;
@@ -351,10 +356,10 @@ h5.d-line-t {
 .d-line-ul>li>span {
     font-size: 16px;
     font-weight: bold;
-    margin-right: 30px;
+    margin-right: 1.5625vw;
 }
 .d-line-ul>li>label {
-    font-size: 24px;
+    font-size: 1.25vw;
     color: #34b1ff;
     font-weight: bold;
 }
@@ -463,6 +468,16 @@ span._opeBtn {
     vertical-align: middle;
     cursor: pointer;
 }
-.ant-table-cell>span._opeBtn:last-child {
+.ant-table-cell span._opeBtn:last-child {
     border-right: 0;
+}
+.mapContainer {
+    width: 100%;
+    height: calc(100vh - 90px);
+    box-sizing: border-box;
+}
+/* layoutSide */
+.layoutSide {
+    width: 50px;
+    height: 100%;
 }
