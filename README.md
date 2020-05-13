@@ -1,6 +1,12 @@
 ## 项目说明
 基于antd组件库的后台管理系统。项目包含很多antd常见组件的用法，包含react常用路由、传参等react基础知识，适合react新手学习。
 
+## 注意事项
+nodeServer文件夹下是用node搭建的本地服务代码，在此目录下执行 npm i 下载好依赖， 再执行 npm run dev 启动本地服务，注意保证端口号是3000。
+启动node服务后，再回到根目录，使用npm start 启动项目。若无法启动，请先执行npm i下载依赖，正常启动后，此时会提示3000端口被占用，选择愿意使用其他端口号启动。
+在素材页，表格数据由接口提供，但是请求的接口端口号不一致会有跨域报错。推荐在谷歌扩展商店找到 Access-Control-Allow-Credentials: true 该插件，可以允许跨域访问借口。 如果谷歌浏览器安装插件后依然无法请求成功，请在Microsoft edge 浏览器安装此插件后访问。或者技术更好的同学自行配置ngx解决跨域问题。
+
+第一次尝试使用node封装后台接口，主要使用了express。没有连接数据库，数据存储在一个json静态文件中。
 
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
