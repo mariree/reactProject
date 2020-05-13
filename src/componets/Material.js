@@ -53,6 +53,7 @@ export default class Material extends React.Component {
         this.addMatrial = this.addMatrial.bind(this)
         this.changeAddPopInfo = this.changeAddPopInfo.bind(this)
         this.addPopFun = this.addPopFun.bind(this)
+        this.cancelAddPopFun = this.cancelAddPopFun.bind(this)
     }
 
     initTableData () {
@@ -112,6 +113,24 @@ export default class Material extends React.Component {
             }
         }).catch(function (error) {
             console.log(error);
+        })
+    }
+
+    cancelAddPopFun() {
+        this.setState({
+            addPopVisible: false,
+            addMaterialInfo: {
+                "name": '',
+                "type": "",
+                "size": "",
+                "sharpness": "",
+                "duration": "",
+                "author": "",
+                "upTime": "",
+                "folder": "",
+                "organ": "",
+                "status": "0"
+            }
         })
     }
     render () {
