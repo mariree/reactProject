@@ -46,12 +46,12 @@ class Siderbar extends React.Component {
     icon: <SettingOutlined />,
     children: [{
         key : '301',
-        title: 'option6',
-        path: 'option6'
+        title: 'Map',
+        path: 'Map'
         }, {
         key : '302',
-        title: 'option7',
-        path: 'option7'
+        title: 'Complex',
+        path: 'Complex'
     }]
   }]
 
@@ -83,7 +83,7 @@ class Siderbar extends React.Component {
                 openKeys={this.state.openKeys}
                 onOpenChange={this.onOpenChange}
                 onClick = {this.onClick}
-                style={{ width: 256}}
+                // style={{ width: 256}}
             >
             {
                 this.menuData.map(item => {

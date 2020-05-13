@@ -1,7 +1,8 @@
 import React from 'react'
-import { Input, Row, Col , Popover, Button, Radio  } from 'antd';
+import axios from 'axios';
+import { Input, Row, Col , Popover, Button, Radio ,Modal, message } from 'antd';
 import { ProfileOutlined, MenuOutlined, FolderAddOutlined, UnorderedListOutlined, AppstoreOutlined} from '@ant-design/icons';
-import { fileData } from '../json/material'
+// import { fileData } from '../json/material'
 import FileDataList from '../pages/FileDataList'
 
 
@@ -28,12 +29,56 @@ export default class Material extends React.Component {
             currentFocus: -1,
             fileFilter: 'all',
             // 0待审 1驳回 2待入库 3合格
-            fileData,
+            fileData: [],
             // 'table' 'list'
             viewType: 'table',
             chosedFile: {},
             chooseFile,
+            addMaterialInfo: {
+                "name": '',
+                "type": "",
+                "size": "",
+                "sharpness": "",
+                "duration": "",
+                "author": "",
+                "upTime": "",
+                "folder": "",
+                "organ": "",
+                "status": "0"
+            },
+            addPopVisible: false,
+            initTableData: this.initTableData.bind(this)
         }
+        this.initTableData = this.initTableData.bind(this)
+        this.addMatrial = this.addMatrial.bind(this)
+        this.changeAddPopInfo = this.changeAddPopInfo.bind(this)
+        this.addPopFun = this.addPopFun.bind(this)
+    }
+
+    initTableData () {
+        let _this = this
+        axios.get('http://localhost:3000/getTest1', {
+        }).then(function (res) {
+            if(res.data.dataStatus === '000000'){
+                console.log(res)
+                _this.setState({
+                    fileData: res.data.data.data
+                })
+            }
+        }).catch(function (error) {
+            console.log(error);
+        })
+    }
+
+    addMatrial() {
+        let _this = this
+        this.setState({
+            addPopVisible: true
+        })
+    }
+
+    componentDidMount() {
+        this.initTableData()
     }
 
     updateSidePart (index, key, value) {
@@ -42,8 +87,35 @@ export default class Material extends React.Component {
             sidePart: sidePart.map((item, _index) => _index == index ? {...item, [key]: value} : item), 
         })
     }
+
+    changeAddPopInfo (type, e) {
+        let obj = {
+            [type]: e.target.value
+        }
+        this.setState((state)=>{
+            return ({
+                addMaterialInfo: Object.assign({}, state.addMaterialInfo,obj)
+            })
+        })
+    }
+
+    addPopFun() {
+        let _this = this
+        const info = this.state.addMaterialInfo
+        this.setState({
+            addPopVisible: false
+        })
+        axios.post('http://localhost:3000/addData', {...info, "status": "0"}).then(function (res) {
+            if(res.data.dataStatus === '000000'){
+                message.success('新增成功')
+                _this.initTableData()
+            }
+        }).catch(function (error) {
+            console.log(error);
+        })
+    }
     render () {
-        const {sidePart,currentFocus, chosedFile} = this.state
+        const {sidePart,currentFocus, chosedFile, addPopVisible} = this.state
         const filesEdit = ()=> {
             let data = sidePart.slice()
             data[currentFocus]&&(data[currentFocus].showInput = true)
@@ -114,6 +186,8 @@ export default class Material extends React.Component {
             name: '所属机构',
             key: 'organ'
         }]
+
+        let {name, type, size, sharpness, duration, author, upTime, folder, organ} = this.state.addMaterialInfo
         return (
             <div className='m-wrap'>
                 <Row>
@@ -142,11 +216,11 @@ export default class Material extends React.Component {
                              </ul>
                         </div>
                     </Col>
-                    <Col span={15}>
+                    <Col span={17}>
                         <div className="m-list-wrap">
                             <h5 className="cur-head">当前位置：素材管理</h5>
                             <div className="botBorder m-addbtn-wrap">
-                                <Button type="primary" >添加素材</Button>
+                                <Button type="primary" onClick={this.addMatrial} >添加素材</Button>
                             </div>
                             <div className="botBorder m-c-condition">
                                 <span>名称：</span>
@@ -173,7 +247,7 @@ export default class Material extends React.Component {
                             <FileDataList {...this.state}></FileDataList>
                         </div>
                     </Col>
-                    <Col span={6}>
+                    <Col span={4}>
                         <div className="curFileInfo">
                             <h5>详细信息</h5>
                             <ul>
@@ -189,6 +263,44 @@ export default class Material extends React.Component {
                         </div>
                     </Col>
                 </Row>
+                <Modal
+                    title="新增素材"
+                    visible={addPopVisible}
+                    onOk={this.addPopFun}
+                    onCancel={this.cancelAddPopFun}
+                    >
+                    <div>
+                        <ul>
+                            <li>
+                                <span>素材名称</span><Input className='m-c-search' onChange={this.changeAddPopInfo.bind(this,'name')} value={name}></Input>
+                            </li>
+                            <li>
+                                <span>素材类型</span><Input className='m-c-search' onChange={this.changeAddPopInfo.bind(this,'type')} value={type}></Input>
+                            </li>
+                            <li>
+                                <span>素材大小</span><Input className='m-c-search' onChange={this.changeAddPopInfo.bind(this,'size')} value={size}></Input>
+                            </li>
+                            <li>
+                                <span>素材分辨率</span><Input className='m-c-search' onChange={this.changeAddPopInfo.bind(this,'sharpness')} value={sharpness}></Input>
+                            </li>
+                            <li>
+                                <span>素材时长</span><Input className='m-c-search' onChange={this.changeAddPopInfo.bind(this,'duration')} value={duration}></Input>
+                            </li>
+                            <li>
+                                <span>素材作者</span><Input className='m-c-search' onChange={this.changeAddPopInfo.bind(this,'author')} value={author}></Input>
+                            </li>
+                            <li>
+                                <span>素材上传时间</span><Input className='m-c-search' onChange={this.changeAddPopInfo.bind(this,'upTime')} value={upTime}></Input>
+                            </li>
+                            <li>
+                                <span>素材所属文件夹</span><Input className='m-c-search' onChange={this.changeAddPopInfo.bind(this,'folder')} value={folder}></Input>
+                            </li>
+                            <li>
+                                <span>素材所属机构</span><Input className='m-c-search' onChange={this.changeAddPopInfo.bind(this,'organ')} value={organ}></Input>
+                            </li>
+                        </ul>
+                    </div>
+                </Modal>
             </div>
         )
     }
