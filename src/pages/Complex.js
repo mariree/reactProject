@@ -19,7 +19,7 @@ class Increase extends Component {
         return (
             <>
                 <p onClick={()=>{this.props.increase(this.props.number)}}>increase: {this.props.number}</p>
-                <span onClick={this.test}>点我发请求</span>
+                <span onClick={this.test}>点我发请求1111</span>
             </>
         )
     }
