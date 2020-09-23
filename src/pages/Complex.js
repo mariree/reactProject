@@ -26,6 +26,7 @@ class Increase extends Component {
                         <li>1</li>
                     </ul>
                 </div>
+                <span onClick={this.test}>点我发请求1111</span>
             </>
         )
     }
