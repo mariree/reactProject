@@ -52,6 +52,10 @@ class Siderbar extends React.Component {
         key : '302',
         title: 'Complex',
         path: 'Complex'
+        }, {
+        key : '303',
+        title: 'EMap',
+        path: 'EMap'
     }]
   }]
 

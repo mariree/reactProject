@@ -1,6 +1,6 @@
 const fs = require('fs');
 const api = require('./http')
-const express = require('express')
+// const express = require('express')
 // const bodyParser = require('body-parser');
 // var urlencodedParser = bodyParser.urlencoded({ extended: false })
 
@@ -55,6 +55,15 @@ api.post('/deleteData', (req, res) => {
                 dataMsg: 'success'
             })
         })
+    })
+})
+
+// 
+api.post('/editData', (req, res) => {
+    res.status(200)
+    res.json({
+        dataStatus:'000000',
+        dataMsg: 'success'
     })
 })
 api.listen(3000)

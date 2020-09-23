@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react'
 import {FileTextTwoTone} from '@ant-design/icons'
 import { Button, Table, message  } from 'antd';
-import axios from 'axios';
+import axios from '../http';
 
 class FileDataList extends React.Component {
     constructor(props) {
@@ -20,7 +20,7 @@ class FileDataList extends React.Component {
     deleteMat(info) {
         console.log(info)
         let _this = this
-        axios.post('http://localhost:3000/deleteData', info).then(function (res) {
+        axios.post('/deleteData', info).then(function (res) {
             if(res.data.dataStatus === '000000'){
                 message.success('删除成功')
                 _this.props.initTableData()
@@ -162,7 +162,7 @@ class FileDataList extends React.Component {
                 {
                     (viewType==='list')&&
                     <div className='fileListWrap-l'>
-                        <Table dataSource={fileData}  columns={columns} scroll></Table>
+                        <Table dataSource={fileData}  columns={columns} rowKey={(r, i) => (r.id)} scroll></Table>
                     </div>
                 }
             </Fragment>

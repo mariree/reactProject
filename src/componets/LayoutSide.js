@@ -7,8 +7,12 @@ class LayoutSide extends React.Component {
         console.log(this.props)
     }
 
+
+    componentWillReceiveProps(nextProps) {
+        console.log(nextProps)
+    }
     render() {
-        const {sideList} = this.props
+        const {sideList=[]} = this.props
         return (
             <div className="layoutSide">
                 {
@@ -24,7 +28,7 @@ class LayoutSide extends React.Component {
     }
 }
 
-LayoutSide.propTypes = {
-    sideList: PropTypes.array.isRequired
-  }
+// LayoutSide.propTypes = {
+//     sideList: PropTypes.array.isRequired
+//   }
 export default LayoutSide

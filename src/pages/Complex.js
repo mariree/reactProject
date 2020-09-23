@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {createStore} from 'redux';
 import {Provider, connect} from 'react-redux';
-import axios from 'axios';
+import axios from '../http';
 // import { ProfileOutlined, MenuOutlined, FolderAddOutlined, UnorderedListOutlined, AppstoreOutlined} from '@ant-design/icons';
 import LayoutSide from '../componets/LayoutSide'
 
@@ -20,6 +20,12 @@ class Increase extends Component {
             <>
                 <p onClick={()=>{this.props.increase(this.props.number)}}>increase: {this.props.number}</p>
                 <span onClick={this.test}>点我发请求</span>
+                <div>
+                    <p>标题</p>
+                    <ul>
+                        <li>1</li>
+                    </ul>
+                </div>
             </>
         )
     }
@@ -31,7 +37,7 @@ class Increase extends Component {
         // }).catch(function (error) {
         //     console.log(error);
         // });
-        axios.post('http://localhost:3000/editData', {
+        axios.post('/editData', {
             params: {}
         }).then(function (response) {
             console.log(response)

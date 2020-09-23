@@ -1,5 +1,5 @@
 import React from 'react'
-import axios from 'axios';
+import axios from '../http';
 import { Input, Row, Col , Popover, Button, Radio ,Modal, message } from 'antd';
 import { ProfileOutlined, MenuOutlined, FolderAddOutlined, UnorderedListOutlined, AppstoreOutlined} from '@ant-design/icons';
 // import { fileData } from '../json/material'
@@ -58,7 +58,7 @@ export default class Material extends React.Component {
 
     initTableData () {
         let _this = this
-        axios.get('http://localhost:3000/getTest1', {
+        axios.get('/getTest1', {
         }).then(function (res) {
             if(res.data.dataStatus === '000000'){
                 console.log(res)
@@ -106,7 +106,7 @@ export default class Material extends React.Component {
         this.setState({
             addPopVisible: false
         })
-        axios.post('http://localhost:3000/addData', {...info, "status": "0"}).then(function (res) {
+        axios.post('/addData', {...info, "status": "0"}).then(function (res) {
             if(res.data.dataStatus === '000000'){
                 message.success('新增成功')
                 _this.initTableData()
