@@ -1,6 +1,6 @@
-import React, {Component} from 'react'
-import {createStore} from 'redux';
-import {Provider, connect} from 'react-redux';
+import React, { Component } from 'react'
+import { createStore } from 'redux';
+import { Provider, connect } from 'react-redux';
 import axios from '../http';
 // import { ProfileOutlined, MenuOutlined, FolderAddOutlined, UnorderedListOutlined, AppstoreOutlined} from '@ant-design/icons';
 import LayoutSide from '../componets/LayoutSide'
@@ -18,7 +18,7 @@ class Increase extends Component {
     render() {
         return (
             <>
-                <p onClick={()=>{this.props.increase(this.props.number)}}>increase: {this.props.number}</p>
+                <p onClick={() => { this.props.increase(this.props.number) }}>increase: {this.props.number}</p>
                 <span onClick={this.test}>点我发请求</span>
                 <div>
                     <p>标题</p>
@@ -61,7 +61,7 @@ class Increase extends Component {
 
 
 
-function couterUp(state = {number: 100}, action) {
+function couterUp(state = { number: 100 }, action) {
     switch (action.type) {
         case 'up':
             return {
@@ -94,9 +94,9 @@ let Content = connect(
     mapDispatchToProps
 )(Increase);
 
-let LayoutSideWrap = connect(state=> ({
-        sideList:state.sideList
-    }))(LayoutSide)
+let LayoutSideWrap = connect(state => ({
+    sideList: state.sideList
+}))(LayoutSide)
 
 export default class Complex extends Component {
     constructor(props) {
@@ -109,7 +109,7 @@ export default class Complex extends Component {
                 {/* <LayoutSideWrap /> */}
                 <Content />
             </div>
-            
+
         </Provider>
     }
 }
