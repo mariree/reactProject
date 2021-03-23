@@ -481,3 +481,19 @@ span._opeBtn {
     width: 50px;
     height: 100%;
 }
+/* map */
+.EMap {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+    border: 1px solid var(--grayBorder);
+    height: 800px
+}
+.map-contain {
+    flex: auto;
+}
+.map-data {
+    width: 150px;
+    flex: none;
+    border-left: 1px solid var(--grayBorder);
+}
